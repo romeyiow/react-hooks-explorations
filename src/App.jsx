@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react"
+const UserProfile = () => {
+  const [user, setUser] = useState(
+    {
+      name: 'Jerome Imperial',
+      email: 'jcimperial@gmail.com'
+    }
+  )
 
-const Button = () => {
-  const [count, setCount] = useState(0)
-  const updateCountToTen = () => {
-    setCount(10)
+  const updateUser = () => {
+    setUser({ 
+      name: 'Elmer ', 
+      email: 'some@thing' })
   }
-  
+
+
   return (
     <>
-      <h1>Count: {count}</h1>
-      <button onClick={updateCountToTen}>updateCountToTen</button>
+      <h1>Jerome Imperial</h1>
+      <p>Lorem ipsum dolor sit amet.</p>
+      <button onClick={updateUser}>update user</button>
     </>
   )
 }
 
 const App = () => {
-  const [count, setCount] = useState(0)
-  const increment = () => {
-    setCount(count + 1)
-  }
-  const decrement = () => {
-    setCount(count - 1)
-  }
+
   return (
-    <>
-      <button onClick={increment}>increment</button>
-      <h1>Count: {count}</h1>
-      <button onClick={decrement}>decrement</button>
-      <Button />
-    </>
+    <UserProfile />
   )
 }
 
