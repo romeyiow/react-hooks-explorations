@@ -4,13 +4,19 @@ import './index.css'
 import App from './App.jsx'
 import AppClassComponent from './AppClassComponent.jsx'
 import UserFetcher from './UserFetcher.jsx'
+import InputChecker from './InputChecker.jsx'
+import UserProfile from './UserProfile.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    {/* StrictMode captures side-effects kaya dalawang beses naco-call */}
+    {/* <App /> */}
     {/* <br/> */}
     {/* <br/> */}
     {/* <br/> */}
     {/* <AppClassComponent /> */}
-    <UserFetcher />
+    {/* <UserFetcher /> */}
+    {/* <InputChecker /> */}
+    <UserProfile />
+
   </StrictMode>,
 )

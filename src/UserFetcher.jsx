@@ -1,47 +1,45 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
+//ang panget mo kuya jers HAHAHAHAHA
 const UserFetcher = () => {
     const [user, setUser] = useState(null)
+    const [userId, setUserId] = useState(1)
+    // useEffect(effect, dependency) therefore two params; PAG WALANG dependency laging magra-run
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     fetch('https://jsonplaceholder.typicode.com/users/3')
-    //         .then(response => {
-    //             return response.json()
-    //         })
-    //         .then(data => setUser(data))
-    //         .catch(error => console.log(error))
-    // }, [])
-     useEffect (() => {
-        fetch('')
-        .then(fetchedData => {return fetchedData.json()})
-        .then(convertedData => {setUser(convertedData)})
-        .catch(error => {console.log(error)})
-     },[])
+        //XHR is primitive way of getting data 
+        fetch('https://jsonplaceholder.typicode.com/users/' + userId) // can use stick which is <___>
+            .then(promise => {
+                if (!promise.ok) {
+                    throw new Error("Error Message: Error 404")
+                }
+                return promise.json()
+            })
+            .then(data => { setUser(data) })
+
+        //fetch return a promise
+        //jsx is not readable to browser, we need transpiler
+    }, [userId])
+
+    const handleUserIdChange = (event) => {
+        setUserId(event.target.value);
+    }
     return (
         <>
-            <h1>User Fetcher Component</h1>
-            
-            {user ? (
-                <>
-                    <p>name: {user.name}</p>
-                    <p>email: {user.email}</p>
-                </>) : (
-                <p>Loading...</p>  // Loading message until data is fetched
-            )}
-            {null ? (<>is no longer null</>):(user)}
+            <div>
+                <input type="text"
+                    onChange={handleUserIdChange}
 
-            {/* {(() => {
-                
-                if (user) {
-                    return (
-                  <>
-                        <p>name: {user.name}</p>
-                        <p>email: {user.email}</p>
-                    </>
-                    )
-                } else {
-                   return <p>Loading...</p>
-                }
-            })()} */}
+                />
+            </div>
+            <div>
+                {user && //null coalescing instead of ternary operator
+                    <>
+                        <h3>{user.name}</h3>
+                        <h3>{user.email}</h3>
+                        <h3>{user.phone}</h3>
+                    </>}
+
+            </div>
         </>
     )
 }
