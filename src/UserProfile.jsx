@@ -1,31 +1,41 @@
-import { useState, useEffect } from "react"
+import { useState, useContext, createContext } from "react"
 import UserFetcher from "./UserFetcher"
 
-const UserProfileChild = (props) => { //1
 
-    return <UserProfileGrandChild user={user} />
+const useContext = createContext()
 
-}
-const UserProfileGrandChild = (props) => { //2
-    return <UserProfileGreatGrandChild user={props} />
-}
-const UserProfileGreatGrandChild = (props) => { //3
+const UserProvider = ({ children }) => {
+    const [user, setUSer] = useState(
+        {
+            name: 'Jers',
+            email: 'jers@gmail>com'
+        }
+    )
     return (
-        <>
-            <p>User Profile</p>
-            <p>{props.name}</p>
-            <p>{props.email}</p>
-        </>
+        <UserContext.Provider value={{ user }}> {children} </UserContext.Provider>
     )
 }
 
 
-const UserProfile = () => { //Parent
-    const user = {
-        name: 'Jerome',
-        email: '@gmail.com'
-    }
-    return <UserProfileChild user={user}/>
+const UserDetails = () => {
+    const { user } = useContext()
+    return (
+        <>
+            <h1>User Profile</h1>
+            <h3>{user.name}</h3>
+        </>
+    )
+
+}
+const UserProfile = () => {
+
+    return (
+        <>
+            <UserProvider >
+                <UserDetails />
+            </UserProvider>
+        </>
+    )
 
 }
 
